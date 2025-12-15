@@ -4,8 +4,8 @@ const QuickContacts = () => {
   return (
     <div className="text-sm text-gray-700 space-y-3">
       <div>📞 Phone: <strong>+254 705121092</strong></div>
-      <div>✉️ Email: <strong>mwangigatimu@gmail.com</strong></div>
-      <div>📍 Service area: Eldoret, Nairobi & surrounding counties</div>
+      <div>✉️ Email: <strong>arkmedicalt@gmail.com</strong></div>
+      <div>📍 Service area: Colorado</div>
 
       {/* WhatsApp button */}
       <a
@@ -21,7 +21,7 @@ const QuickContacts = () => {
       <div className="mt-6">
         <h5 className="text-sm font-medium">Hours</h5>
         <div className="text-sm text-gray-600">
-          Open 24/7 for scheduled & urgent non-emergency transport
+        Open Monday-Friday for scheduled & urgent non-emergency transport
         </div>
       </div>
     </div>
