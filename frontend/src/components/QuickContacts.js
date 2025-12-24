@@ -3,13 +3,13 @@ import React from "react";
 const QuickContacts = () => {
   return (
     <div className="text-sm text-gray-700 space-y-3">
-      <div>📞 Phone: <strong>+254 705121092</strong></div>
+      <div>📞 Phone: <strong>+1 (720) 620-1567</strong></div>
       <div>✉️ Email: <strong>arkmedicalt@gmail.com</strong></div>
       <div>📍 Service area: Colorado</div>
 
       {/* WhatsApp button */}
       <a
-  href="https://wa.me/254705121092?text=Hello%20Ark%20Medical%20Transport,%20I%20need%20your%20assistance%3F"
+  href="https://wa.me/17206201567?text=Hello%20Ark%20Medical%20Transport,%20I%20need%20your%20assistance%3F"
   target="_blank"
   rel="noopener noreferrer"
   className="inline-flex items-center gap-2 mt-2 bg-green-500 text-white px-4 py-2 rounded-md font-medium hover:bg-green-600"
