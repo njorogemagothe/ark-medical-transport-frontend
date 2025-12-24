@@ -290,7 +290,7 @@ function Footer() {
           <div className="font-semibold">Contact</div>
           <ul className="mt-2 space-y-2">
             <li>Email: arkmedicalt@gmail.com</li>
-            <li>Phone: +254 700 000 000</li>
+            <li>Phone: +1 (720) 620-1567</li>
           </ul>
         </div>
       </div>
