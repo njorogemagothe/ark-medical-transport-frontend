@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Chatbot from "./components/Chatbot"; 
 import QuickContacts from "./components/QuickContacts";
-import { InlineWidget } from "react-calendly";
+import { InlineWidget, PopupWidget } from "react-calendly";
 import emailjs from "emailjs-com";
 
 export default function App() {
@@ -31,6 +31,10 @@ export default function App() {
   const calendlyLink = "https://calendly.com/arkmedicalt/medical-transport-booking-nemt";
   const [userEmail, setUserEmail] = useState("");
   const [showTopBtn, setShowTopBtn] = useState(false);
+  const [showCalendlyPopup, setShowCalendlyPopup] = useState(false);
+
+  // NEW: show CTA after scroll
+  const [showMobileCTA, setShowMobileCTA] = useState(false);
 
   // Cycle banner images
   useEffect(() => {
@@ -46,6 +50,16 @@ export default function App() {
       setShowTopBtn(window.scrollY > 300);
     };
     window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  // NEW: Show/hide mobile CTA after scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowMobileCTA(window.scrollY > 120);
+    };
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
@@ -111,56 +125,49 @@ export default function App() {
           </p>
         </div>
       </section>
+
       {/* Service Area Section */}
-<section className="bg-gray-100 py-16">
-  <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
-
-    {/* Text Content */}
-    <div>
-      <h3 className="text-3xl md:text-4xl font-bold mb-4">
-        Proudly Serving Colorado
-      </h3>
-      <p className="text-lg text-gray-700 mb-4">
-        Ark Medical Transport provides safe, reliable, and compassionate
-        non-emergency medical transportation services across the state of
-        Colorado.
-      </p>
-      <p className="text-gray-600">
-        From urban centers to rural communities, our trained professionals
-        ensure patients, seniors, and individuals with mobility needs arrive
-        at their medical appointments comfortably and on time.
-      </p>
-
-      <div className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-md font-medium">
-        Service Area: Colorado
-      </div>
-    </div>
-
-    {/* Image */}
-    <div className="w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
-      <img
-        src="/service-areas-800.webp"
-        srcSet="
-          /service-areas-400.webp 400w,
-          /service-areas-800.webp 800w,
-          /service-areas-1200.webp 1200w
-        "
-        sizes="(max-width: 640px) 400px,
-               (max-width: 1024px) 800px,
-               1200px"
-        alt="Map of Colorado showing Ark Medical Transport service area"
-        className="w-full h-full object-cover"
-        loading="lazy"
-      />
-    </div>
-
-  </div>
-</section>
-
+      <section className="bg-gray-100 py-16">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
+          <div>
+            <h3 className="text-3xl md:text-4xl font-bold mb-4">
+              Proudly Serving Colorado
+            </h3>
+            <p className="text-lg text-gray-700 mb-4">
+              Ark Medical Transport provides safe, reliable, and compassionate
+              non-emergency medical transportation services across the state of
+              Colorado.
+            </p>
+            <p className="text-gray-600">
+              From urban centers to rural communities, our trained professionals
+              ensure patients, seniors, and individuals with mobility needs arrive
+              at their medical appointments comfortably and on time.
+            </p>
+            <div className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-md font-medium">
+              Service Area: Colorado
+            </div>
+          </div>
+          <div className="w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
+            <img
+              src="/service-areas-800.webp"
+              srcSet="
+                /service-areas-400.webp 400w,
+                /service-areas-800.webp 800w,
+                /service-areas-1200.webp 1200w
+              "
+              sizes="(max-width: 640px) 400px,
+                     (max-width: 1024px) 800px,
+                     1200px"
+              alt="Map of Colorado showing Ark Medical Transport service area"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
 
       {/* Service + Booking Section */}
       <section className="max-w-7xl mx-auto px-6 py-16 md:flex md:gap-10">
-        {/* Services */}
         <div id="services" className="md:w-1/2">
           <h3 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
@@ -171,8 +178,6 @@ export default function App() {
             <li>Hospital and clinic transfers</li>
           </ul>
         </div>
-
-        {/* Booking */}
         <div id="booking" className="md:w-1/2 mt-6 md:mt-0">
           <h3 className="text-2xl font-bold text-center mb-6">Book Your Medical Transport</h3>
           <div className="flex justify-center">
@@ -198,10 +203,41 @@ export default function App() {
       {showTopBtn && (
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-          className="fixed bottom-6 right-6 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg z-50 hover:bg-blue-700 transition"
+          className="fixed bottom-20 right-6 bg-blue-600 text-white px-4 py-2 rounded-full shadow-lg z-50 hover:bg-blue-700 transition"
         >
           ↑ Top
         </button>
+      )}
+
+      {/* Sticky Bottom CTA Bar (Mobile Only — Shows After Scroll) */}
+      {showMobileCTA && (
+        <div className="fixed bottom-0 left-0 w-full flex justify-around md:hidden bg-blue-600 p-2 z-50">
+          <a
+            href="tel:+17206201567"
+            className="flex-1 mx-1 px-4 py-3 text-center rounded-md bg-blue-800 text-white font-semibold hover:bg-blue-900"
+          >
+            📞 Call Now
+          </a>
+          <button
+            onClick={() => setShowCalendlyPopup(true)}
+            className="flex-1 mx-1 px-4 py-3 text-center rounded-md bg-blue-800 text-white font-semibold hover:bg-blue-900"
+          >
+            📅 Book Now
+          </button>
+        </div>
+      )}
+
+      {/* Calendly Popup Widget */}
+      {showCalendlyPopup && (
+        <PopupWidget
+          url={calendlyLink}
+          rootElement={document.getElementById("root")}
+          text="Book Now"
+          color="#0a65c2"
+          textColor="#ffffff"
+          pageSettings={{ hideLandingPageDetails: true }}
+          onModalClose={() => setShowCalendlyPopup(false)}
+        />
       )}
     </div>
   );
@@ -290,7 +326,7 @@ function Footer() {
           <div className="font-semibold">Contact</div>
           <ul className="mt-2 space-y-2">
             <li>Email: arkmedicalt@gmail.com</li>
-            <li>Phone: +1 (720) 620-1567</li>
+            <li>Tel: +1 (720) 620-1567</li>
           </ul>
         </div>
       </div>
