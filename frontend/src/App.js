@@ -123,6 +123,18 @@ export default function App() {
             Let us carry that worry for you.
             We’re here to listen, to help, and to drive with heart—every step of the way.
           </p>
+<div>
+           <h2 className="text-3xl md:text-4xl font-bold">Mission Statement</h2>
+<p className="text-lg md:text-xl text-gray-600 mt-2">
+            To provide safe, reliable and compassionate Non-emmergency Medical
+             transportation that supports patient independence and health care access. 
+             </p></div>
+             <h2 className="text-3xl md:text-4xl font-bold">Vision statement</h2>
+<p className="text-lg md:text-xl text-gray-600 mt-2">
+             To become one of the most trusted NEMT providers in the Denver Metro Area 
+             and Aurora, recognized for reliability, customer satisfaction and excellent services.
+          </p>
+
         </div>
       </section>
 
@@ -131,7 +143,7 @@ export default function App() {
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-10 items-center">
           <div>
             <h3 className="text-3xl md:text-4xl font-bold mb-4">
-              Proudly Serving Colorado
+              Proudly Serving Aurora, Denver, Centennial, Lakewood, and sorrounding areas.
             </h3>
             <p className="text-lg text-gray-700 mb-4">
               Ark Medical Transport provides safe, reliable, and compassionate
@@ -144,7 +156,7 @@ export default function App() {
               at their medical appointments comfortably and on time.
             </p>
             <div className="mt-6 inline-block bg-blue-600 text-white px-6 py-3 rounded-md font-medium">
-              Service Area: Colorado
+              Service Areas: Aurora, Denver, Centennial, Lakewood, and sorrounding areas.
             </div>
           </div>
           <div className="w-full h-80 md:h-[420px] rounded-xl overflow-hidden shadow-lg">
@@ -171,11 +183,13 @@ export default function App() {
         <div id="services" className="md:w-1/2">
           <h3 className="text-3xl md:text-4xl font-bold mb-4">Our Services</h3>
           <ul className="list-disc list-inside text-gray-700 space-y-2">
-            <li>Non-emergency patient transport</li>
-            <li>Senior citizen transport</li>
-            <li>Mobility assistance and wheelchair transport</li>
-            <li>Medical appointment transport</li>
-            <li>Hospital and clinic transfers</li>
+            <li>Wheelchair transportation</li>
+            <li>Ambulatory transport for seniors and special needs transport</li>
+            <li>Assisted living facility transport</li>
+            <li>Dialysis transportation and therapy visits</li>
+            <li>Hospital discharge pick-ups</li>
+            <li>behavioural health appointment transport</li>
+            <li>Long distance medical transport(within Colorado)</li>
           </ul>
         </div>
         <div id="booking" className="md:w-1/2 mt-6 md:mt-0">
