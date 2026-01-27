@@ -3,6 +3,12 @@ import React, { useState } from "react";
 
 const faqs = [
   {
+  question: "Do I need insurance to book a ride?",
+  answer:
+    "No. Ark Medical Transport does not require insurance approval. Patients, caregivers, and healthcare facilities can book rides directly with us without going through an insurance provider. This makes us a reliable option if your insurance transportation is delayed, denied, or unavailable."
+},
+
+  {
     question: "What areas do you serve?",
     answer: "We provide safe and reliable transport services in Aurora, Denver, Centennial, Lakewood, and surrounding areas across Colorado. For locations outside these areas, please contact us to confirm availability.",
   },

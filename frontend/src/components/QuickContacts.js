@@ -6,20 +6,20 @@ const QuickContacts = () => {
       <div>
         📞 Phone:{" "}
         <a
-          href="tel:+17206201567"
+          href="tel:+17205131611"
           className="text-blue-600 hover:underline font-semibold"
         >
-          +1 (720) 620-1567
+          +1 (720) 513-1611
         </a>
       </div>
 
       <div>
         ✉️ Email:{" "}
         <a
-          href="mailto:arkmedicalt@gmail.com"
+          href="mailto:info@arkmedicaltransport.org"
           className="text-blue-600 hover:underline font-semibold"
         >
-          arkmedicalt@gmail.com
+         info@arkmedicalride.com
         </a>
       </div>
 
@@ -27,7 +27,7 @@ const QuickContacts = () => {
 
       {/* WhatsApp button */}
       <a
-        href="https://wa.me/17206201567?text=Hello%20Ark%20Medical%20Transport,%20I%20need%20your%20assistance%3F"
+        href="https://wa.me/17205131611?text=Hello%20Ark%20Medical%20Transport,%20I%20need%20your%20assistance%3F"
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2 mt-2 bg-green-500 text-white px-4 py-2 rounded-md font-medium hover:bg-green-600"

@@ -4,9 +4,16 @@ import Chatbot from "./components/Chatbot";
 import QuickContacts from "./components/QuickContacts";
 import { InlineWidget, PopupWidget } from "react-calendly";
 import emailjs from "emailjs-com";
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link, useLocation, useNavigate } from "react-router-dom";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import FAQ from "./components/FAQ"; 
+import Terms from "./pages/Terms";
+import Services from "./pages/Services";
+import AboutUs from "./pages/AboutUs";
+import Footer from './components/Footer';
+import ScrollToTop from "./components/ScrollToTop";
+
+
 
 
 export default function App() {
@@ -32,7 +39,7 @@ export default function App() {
   ];
 
   const [bannerIndex, setBannerIndex] = useState(0);
-  const calendlyLink = "https://calendly.com/arkmedicalt/medical-transport-booking-nemt";
+  const calendlyLink = "https://calendly.com/arkmedicalride-info/30min";
   const [userEmail, setUserEmail] = useState("");
   const [showTopBtn, setShowTopBtn] = useState(false);
   const [showCalendlyPopup, setShowCalendlyPopup] = useState(false);
@@ -64,7 +71,9 @@ export default function App() {
 
   // Track active section on scroll
   useEffect(() => {
-    const sections = ["services", "about", "contacts", "booking"];
+  if (window.location.pathname === "/") {
+    const sections = ["services", "about", "reviews", "faq", "contacts", "booking"];
+
     const handleScroll = () => {
       let current = "home";
       for (let id of sections) {
@@ -76,10 +85,15 @@ export default function App() {
       }
       setActiveSection(current);
     };
+
     window.addEventListener("scroll", handleScroll);
     handleScroll();
+
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }
+}, []);
+
+
 
   const handleScrollTo = (id) => {
     const element = document.getElementById(id);
@@ -109,6 +123,7 @@ export default function App() {
 
   return (
     <Router>
+       <ScrollToTop />
       <div className="min-h-screen bg-gray-50 text-gray-900">
         <Header handleScrollTo={handleScrollTo} activeSection={activeSection} />
 
@@ -198,6 +213,7 @@ export default function App() {
                     </div>
                   </div>
                 </section>
+                
 
                 {/* Service + Booking Section */}
                 <section className="max-w-7xl mx-auto px-6 py-16 md:flex md:gap-10">
@@ -213,13 +229,25 @@ export default function App() {
                       <li>Long distance medical transport (within Colorado)</li>
                     </ul>
                   </div>
+                
                   <div id="booking" className="md:w-1/2 mt-6 md:mt-0">
                     <h3 className="text-2xl font-bold text-center mb-6">Book Your Medical Transport</h3>
                     <div className="flex justify-center">
                       <InlineWidget url={calendlyLink} prefill={{ email: userEmail }} />
+            
                     </div>
+                    <p className="text-xs text-gray-500 text-center mt-3">
+                  By booking a ride, you agree to our{" "}
+                  <Link to="/terms" className="text-blue-600 hover:underline">
+                   Terms & Conditions
+                   </Link>.
+                  </p>
                   </div>
                 </section>
+        
+
+
+                
 
                 {/* Chatbot Section */}
                 <section id="chatbot" className="my-16 max-w-7xl mx-auto px-6">
@@ -230,12 +258,11 @@ export default function App() {
                   <QuickContacts />
                 </section>
                 {/* FAQ Section */}
-                <section id="FAQ" className="max-w-7xl mx-auto px-6 py-16">
+                <section id="faq" className="max-w-7xl mx-auto px-6 py-16">
                   <FAQ/>
                 </section>
 
-                {/* Footer */}
-                <Footer />
+      
 
                 {/* Back to Top Button */}
                 {showTopBtn && (
@@ -282,48 +309,87 @@ export default function App() {
           />
 
           <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/Services" element={<Services />} />
+           <Route path="/About Us" element={<AboutUs />} />
         </Routes>
+        <Footer/>
       </div>
     </Router>
   );
 }
-
 /* ================= HEADER COMPONENT ================= */
-function Header({ handleScrollTo, activeSection }) {
+function Header({ handleScrollTo }) {
   const [isOpen, setIsOpen] = useState(false);
   const location = useLocation();
+  const navigate = useNavigate();
 
-  const isActive = (path) => location.pathname === path || activeSection === path;
+  const isActive = (path) => location.pathname === path;
 
   const activeClass = "text-blue-600 font-semibold";
   const defaultClass = "hover:text-blue-600";
 
+  // ✅ NEW: Handles scroll from any page
+  const handleNavScroll = (id) => {
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 100);
+    } else {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   return (
+    <>
     <header className="bg-white shadow-sm sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
         <div className="flex items-center gap-4">
           <img src="/logo.png" alt="Ark Medical Transport Logo" className="w-16 h-16 object-contain" />
           <div>
             <h1 className="text-lg font-semibold">Ark Medical Transport</h1>
-            <p className="text-[8px] text-gray-500">Safe, compassionate non-emergency medical transport</p>
+            <p className="text-[8px] text-gray-500">
+              Safe, compassionate non-emergency medical transport
+            </p>
           </div>
         </div>
 
-        {/* Desktop Menu */}
+        {/* ================= DESKTOP MENU ================= */}
         <nav className="hidden md:flex gap-6 items-center text-sm">
-          <Link to="/" className={isActive("home") ? activeClass : defaultClass}>Home</Link>
-          <button onClick={() => handleScrollTo("services")} className={isActive("services") ? activeClass : defaultClass}>Services</button>
-          <button onClick={() => handleScrollTo("about")} className={isActive("about") ? activeClass : defaultClass}>About</button>
-          <button onClick={() => handleScrollTo("contacts")} className={isActive("contacts") ? activeClass : defaultClass}>Contact</button>
-          <button onClick={() => handleScrollTo("faq")} className="hover:text-blue-600">FAQ</button>
-          <Link to="/privacy-policy" className={isActive("/privacy-policy") ? activeClass : defaultClass}>Privacy policy</Link>
-          <button onClick={() => handleScrollTo("booking")} className={isActive("booking") ? "bg-blue-700 text-white px-4 py-2 rounded-md" : "bg-blue-600 text-white px-4 py-2 rounded-md"}>Book a Ride</button>
+          <Link to="/" className={isActive("/") ? activeClass : defaultClass}>
+            Home
+          </Link>
+
+          <Link to="/Services" className={isActive("/Services") ? activeClass : defaultClass}>
+            Services
+          </Link>
+
+          <button onClick={() => handleNavScroll("faq")} className={defaultClass}>
+            FAQ
+          </button>
+
+          <Link to="/privacy-policy" className={isActive("/privacy-policy") ? activeClass : defaultClass}>
+            Privacy Policy
+          </Link>
+          
+          <Link to="/About Us" className={isActive("/AboutUs") ? activeClass : defaultClass}>
+            About us
+          </Link>
+          <button
+            onClick={() => handleNavScroll("booking")}
+            className="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700"
+          >
+            Book a Ride.
+          </button>
         </nav>
 
-        {/* Mobile Hamburger */}
+        {/* ================= MOBILE MENU ================= */}
         <div className="md:hidden relative">
           <button
-            className="p-2 rounded-md bg-gray-100 focus:outline-none"
+            className="p-2 rounded-md bg-gray-100"
             onClick={() => setIsOpen(!isOpen)}
           >
             <svg
@@ -331,7 +397,6 @@ function Header({ handleScrollTo, activeSection }) {
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
-              xmlns="http://www.w3.org/2000/svg"
             >
               <path
                 strokeLinecap="round"
@@ -342,66 +407,40 @@ function Header({ handleScrollTo, activeSection }) {
             </svg>
           </button>
 
-          {/* Mobile Menu */}
-          <div
-            className={`absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md flex flex-col text-sm transition-all duration-300 ${
-              isOpen ? "flex" : "hidden"
-            }`}
-          >
-            <Link
-              to="/"
-              onClick={() => setIsOpen(false)}
-              className={`px-4 py-2 text-left ${isActive("home") ? activeClass : defaultClass}`}
-            >
-              Home
-            </Link>
-            <button onClick={() => { handleScrollTo("services"); setIsOpen(false); }} className={`px-4 py-2 text-left ${isActive("services") ? activeClass : defaultClass}`}>Services</button>
-            <button onClick={() => { handleScrollTo("about"); setIsOpen(false); }} className={`px-4 py-2 text-left ${isActive("about") ? activeClass : defaultClass}`}>About</button>
-            <button onClick={() => { handleScrollTo("contacts"); setIsOpen(false); }} className={`px-4 py-2 text-left ${isActive("contacts") ? activeClass : defaultClass}`}>Contact</button>
-            <button onClick={() => { handleScrollTo("faq"); setIsOpen(false); }} className="px-4 py-2 hover:bg-gray-100 text-left">FAQ</button>
-            <Link
-              to="/privacy-policy"
-              onClick={() => setIsOpen(false)}
-              className={`px-4 py-2 text-left ${isActive("/privacy-policy") ? activeClass : defaultClass}`}
-            >
-              Privacy policy
-            </Link>
-            <button onClick={() => { handleScrollTo("booking"); setIsOpen(false); }} className={`px-4 py-2 rounded-md mx-2 my-2 text-center ${isActive("booking") ? "bg-blue-700 text-white" : "bg-blue-600 text-white"}`}>Book a Ride</button>
-          </div>
-        </div>
-      </div>
-    </header>
-  );
-}
+          {isOpen && (
+            <div className="absolute right-0 mt-2 w-48 bg-white shadow-md rounded-md flex flex-col text-sm">
+              <Link to="/" onClick={() => setIsOpen(false)} className="px-4 py-2">
+                Home
+              </Link>
 
-/* ================= FOOTER COMPONENT ================= */
-function Footer() {
-  return (
-    <footer className="bg-gray-800 text-gray-200 mt-12">
-      <div className="max-w-7xl mx-auto px-6 py-10 grid md:grid-cols-3 gap-8">
-        <div>
-          <h4 className="text-lg font-semibold">Ark Medical Transport</h4>
-          <p className="mt-2 text-sm text-gray-400">Safe, dignified medical transport for patients and seniors.</p>
-        </div>
-        <div className="text-sm text-gray-400">
-          <div className="font-semibold">Resources</div>
-          <ul className="mt-2 space-y-2">
-            <li><Link to="/privacy-policy">Privacy Policy</Link></li>
-            <li><a href="/FAQ">FAQ</a></li>
-            <li><a href="/Support">Support</a></li>
-          </ul>
-        </div>
-        <div className="text-sm text-gray-400">
-          <div className="font-semibold">Contact</div>
-          <ul className="mt-2 space-y-2">
-            <li>Email: arkmedicalt@gmail.com</li>
-            <li>Tel: +1 (720) 620-1567</li>
-          </ul>
+              <Link to="/Services" onClick={() => setIsOpen(false)} className="px-4 py-2">
+                Services
+              </Link>
+
+              <Link to="/About us" onClick={() => setIsOpen(false)} className="px-4 py-2">
+                About us
+              </Link>
+
+              <button onClick={() => { handleNavScroll("faq"); setIsOpen(false); }} className="px-4 py-2 text-left">
+                FAQ
+              </button>
+
+              <Link to="/privacy-policy" onClick={() => setIsOpen(false)} className="px-4 py-2">
+                Privacy Policy
+              </Link>
+
+              <button
+                onClick={() => { handleNavScroll("booking"); setIsOpen(false); }}
+                className="bg-blue-600 text-white mx-3 my-2 px-3 py-2 rounded-md"
+              >
+                Book a Ride
+              </button>
+            </div>
+          )}
         </div>
       </div>
-      <div className="text-center text-gray-500 text-sm py-4">
-        © 2025 Ark Medical Transport
-      </div>
-    </footer>
+        </header>
+         
+    </>
   );
 }
