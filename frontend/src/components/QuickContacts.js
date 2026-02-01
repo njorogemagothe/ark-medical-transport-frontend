@@ -39,7 +39,7 @@ const QuickContacts = () => {
       <div className="mt-6">
         <h5 className="text-sm font-medium">Hours</h5>
         <div className="text-sm text-gray-600">
-          Open Monday–Friday for scheduled & urgent non-emergency transport
+          Open Monday–Saturday 6am - 8pm for scheduled & urgent non-emergency transport
         </div>
       </div>
     </div>

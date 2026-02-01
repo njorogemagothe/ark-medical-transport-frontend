@@ -68,27 +68,6 @@ export default function PrivacyPolicy() {
           contacting us.
         </Section>
 
-        <Section title="Contact">
-          <p>
-            Phone:{" "}
-            <a
-              href="tel:17205131611"
-              className="text-blue-600 hover:underline font-medium"
-            >
-              720-513-1611
-            </a>
-          </p>
-          <p className="mt-2">
-            FAX :{" "}
-            <a
-              href="tel:18004781689"
-              className="text-blue-600 hover:underline font-medium"
-            >
-              800-478-1689
-            </a>
-          </p>
-        </Section>
-
       </div>
     </div>
 

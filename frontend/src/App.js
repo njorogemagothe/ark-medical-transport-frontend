@@ -30,12 +30,6 @@ export default function App() {
         "/fleet-400.webp 400w, /fleet-800.webp 800w, /fleet-1200.webp 1200w",
       alt: "Ambulance Fleet",
     },
-    {
-      src: "/team-800.webp",
-      srcSet:
-        "/team-400.webp 400w, /team-800.webp 800w, /team-1200.webp 1200w",
-      alt: "Medical Team",
-    },
   ];
 
   const [bannerIndex, setBannerIndex] = useState(0);
@@ -47,12 +41,20 @@ export default function App() {
   const [activeSection, setActiveSection] = useState("home");
 
   // Cycle banner images
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setBannerIndex((prev) => (prev + 1) % bannerImages.length);
-    }, 4000);
-    return () => clearInterval(interval);
-  }, [bannerImages.length]);
+ // Cycle banner images safely
+useEffect(() => {
+  // Ensure bannerIndex is always within bounds
+  setBannerIndex((prev) => (prev >= bannerImages.length ? 0 : prev));
+
+  const interval = setInterval(() => {
+    setBannerIndex((prev) => {
+      // Wrap around when reaching the end
+      return (prev + 1) % bannerImages.length;
+    });
+  }, 4000);
+
+  return () => clearInterval(interval);
+}, [bannerImages.length]);
 
   // Show/hide Back to Top button
   useEffect(() => {

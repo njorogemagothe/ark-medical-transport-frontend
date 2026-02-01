@@ -22,7 +22,7 @@ const faqs = [
   },
   {
     question: "How do I book a ride?",
-    answer: "You can book a ride quickly online using our Booking widget, or call us directly at +1 (720) 620-1567. We also offer scheduling through our mobile CTA buttons for immediate access.",
+    answer: "You can book a ride quickly online using our Booking widget, or call us directly at +1 (720) 513-1611. We also offer scheduling through our mobile CTA buttons for immediate access.",
   },
   {
     question: "How far in advance should I book?",
