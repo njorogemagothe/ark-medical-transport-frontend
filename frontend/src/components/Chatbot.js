@@ -104,7 +104,7 @@ export default function Chatbot() {
           <input
             type="text"
             name="name"
-            placeholder="Your Name"
+            placeholder="John Doe"
             value={formData.name}
             onChange={handleChange}
             required
@@ -114,7 +114,7 @@ export default function Chatbot() {
           <input
             type="email"
             name="email"
-            placeholder="Your Email"
+            placeholder="Johndoe@gmail.com"
             value={formData.email}
             onChange={handleChange}
             required

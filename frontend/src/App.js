@@ -12,6 +12,7 @@ import Services from "./pages/Services";
 import AboutUs from "./pages/AboutUs";
 import Footer from './components/Footer';
 import ScrollToTop from "./components/ScrollToTop";
+import Reviews from "./components/Reviews";
 
 
 
@@ -259,6 +260,11 @@ useEffect(() => {
                 <section id="contacts" className="my-16 max-w-7xl mx-auto px-6">
                   <QuickContacts />
                 </section>
+                {/* Reviews Section */}
+                <section id="Reviews" className="max-w-7xl mx-auto px-6 py-16">
+                  <Reviews/>
+                </section>
+
                 {/* FAQ Section */}
                 <section id="faq" className="max-w-7xl mx-auto px-6 py-16">
                   <FAQ/>
@@ -280,7 +286,7 @@ useEffect(() => {
                 {showMobileCTA && (
                   <div className="fixed bottom-0 left-0 w-full flex justify-around md:hidden bg-blue-600 p-2 z-50">
                     <a
-                      href="tel:+17206201567"
+                      href="tel:+17205131611"
                       className="flex-1 mx-1 px-4 py-3 text-center rounded-md bg-blue-800 text-white font-semibold hover:bg-blue-900"
                     >
                       📞 Call Now
